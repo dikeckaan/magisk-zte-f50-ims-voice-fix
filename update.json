@@ -2,5 +2,6 @@
     "version": "v0.1.0-dev",
     "versionCode": 1,
     "zipUrl": "https://github.com/dikeckaan/magisk-zte-f50-ims-voice-fix/releases/download/v0.1.0-dev/ims-voice-fix-v0.1.0-dev.zip",
+    "sha256": "91fd61bd8c53c55f60fba5945575a865af5aa27b3615aa3083a12d4a30723171",
     "changelog": "https://raw.githubusercontent.com/dikeckaan/magisk-zte-f50-ims-voice-fix/main/CHANGELOG.md"
 }
