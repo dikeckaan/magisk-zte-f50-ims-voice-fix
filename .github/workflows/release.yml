@@ -1,0 +1,15 @@
+name: Auto Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'module.prop'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    uses: dikeckaan/f50-magisk-modules/.github/workflows/release-module.yml@main
