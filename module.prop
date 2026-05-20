@@ -1,7 +1,7 @@
 id=ims-voice-fix
 name=IMS Voice Fix [UNDER DEVELOPMENT - ROOT CAUSE UNCONFIRMED]
-version=v0.1.0-dev
-versionCode=1
+version=v0.2.0-dev
+versionCode=2
 author=kaandikec
 description=⚠ UNDER DEVELOPMENT. Hypothesis: cellular/VoWiFi calls are being dropped when the F50's screen goes off, triggered by com.spreadtrum.ims's PhoneStateMonitor SCREEN_OFF receiver. This module bind-mounts a patched ims.apk (signed) over the stock /system_ext/priv-app/ims/ims.apk; the patch replaces the PhoneStateMonitor.onScreenStateChanged(0) invocation with 3x nop. Counterexample noted: another F50 on the same carrier did NOT drop calls even after screen-off, which suggests either a different IMS build or that screen-off is NOT the actual root cause. Test pending: 'settings put system screen_off_timeout 2147483647' and verify the drop disappears without this module. Until that test confirms the cause, treat this as exploratory.
 updateJson=https://raw.githubusercontent.com/dikeckaan/magisk-zte-f50-ims-voice-fix/main/update.json
