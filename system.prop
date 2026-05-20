@@ -1,0 +1,15 @@
+# Magisk system.prop — disables Spreadtrum VoLTE so the call falls back
+# to CSFB. The vendor-level VoLTE flag overrides CarrierConfig on the F50;
+# leaving it true makes com.spreadtrum.ims insist on VoLTE PDN setup for
+# every call, which (on the "data terminal" SKU) drops at 14-20s with
+# ImsReasonInfo extra-code 999 (IMS_HANDOVER_ACTION_CONFIRMED, see
+# ROOT_CAUSE.md). With this flag false the IMS layer never tries VoLTE
+# and the call goes out via CSFB.
+#
+# Set at boot by Magisk's resetprop. The two persist.dbg.* overrides are
+# AOSP-side belt-and-braces for the Telephony framework — they make the
+# VoLTE-available indicator agree with the vendor flag.
+
+persist.vendor.sys.volte.enable=false
+persist.dbg.volte_avail_ovr=0
+persist.dbg.vt_avail_ovr=0

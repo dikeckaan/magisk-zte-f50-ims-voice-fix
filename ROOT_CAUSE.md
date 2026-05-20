@@ -59,6 +59,27 @@ This explains every prior failed experiment:
   so the device's internet went away (and with it, ADB-over-tunnel access).
   A separate carrier might decouple — to be tried again carefully.
 
+## What actually fixes the call drop (verified live + sustainable)
+
+`persist.vendor.sys.volte.enable=false` + bouncing `com.spreadtrum.ims`:
+
+* `AT+CAVIMS?` reports `0` (VoLTE detached but **data PDP stays up** —
+  no internet loss this time).
+* `gsm.sys.volte.state=0,0`. CarrierConfig already had
+  `carrier_volte_available_bool=false`, so all three layers agree.
+* A test call to a real GSM number ran for **48 seconds** before the
+  network released it with `disconnectCause = 5` = `CONGESTION`. The
+  ImsReasonInfo line is gone from the disconnect telemetry — Telephony
+  goes straight through CSFB, no IMS handover step.
+
+The 48-second ceiling is a separate, unrelated issue: a network-side
+congestion release (carrier-side, not modem-side). Compared with the
+previous 14-20 s deterministic teardown that no AP-side workaround
+could touch, this is now a real voice call.
+
+The fix ships as `system.prop` so Magisk's resetprop applies it at
+boot — no manual intervention after reboot.
+
 ## What needs to be tried next (cannot guess without device)
 
 1. **CarrierConfig override**, NOT a global toggle:
